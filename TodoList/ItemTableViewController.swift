@@ -42,6 +42,7 @@ class ItemTableViewController: UITableViewController {
         self.dismiss(animated: true)
     }
     
+    
     @IBAction func addItem(_ sender: UIBarButtonItem) {
         
         //defining picker view
@@ -78,7 +79,31 @@ class ItemTableViewController: UITableViewController {
         
     }
     
+    
     @IBAction func filter(_ sender: UIButton) {
+        let vc = UIViewController()
+        vc.preferredContentSize = CGSize(width: 250, height: 300)
+        let pickerView = UIPickerView(frame: CGRect(x: 10, y: 0, width: 250, height: 300))
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        
+        vc.view.addSubview(pickerView)
+        
+        let alertToAdd = UIAlertController(title: "Add item", message: nil, preferredStyle: .alert)
+        alertToAdd.setValue(vc, forKey: "contentViewController")
+        let ok = UIAlertAction(title: "Ok", style: .default) { (alert) in
+            let predicate = NSPredicate(format: "priority MATCHES %@", self.selectedPriority!)
+            self.itemData.loadItemData(moc: self.moc!, predicate: predicate)
+            
+            self.tableView.reloadData()
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertToAdd.addAction(ok)
+        alertToAdd.addAction(cancel)
+        self.present(alertToAdd, animated: true, completion: nil)
+        
+        
     }
     
     
@@ -102,7 +127,8 @@ class ItemTableViewController: UITableViewController {
         // Configure the cell...
         cell.todo.text = itemData.items![indexPath.row].name
         cell.checkMark.isHidden = itemData.items![indexPath.row].done ? false : true
-        cell.priorityColor.backgroundColor = colorData.colorList[itemData.items![indexPath.row].priority!]
+        //cell.priorityColor.backgroundColor = colorData.colorList[itemData.items![indexPath.row].priority!]
+        cell.backgroundColor = colorData.colorList[itemData.items![indexPath.row].priority!]
 
         return cell
     }
@@ -182,9 +208,34 @@ extension ItemTableViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedPriority = Array(colorData.colorList)[row].key
     }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let smallView = UIView(frame: CGRect(x: 50, y: 320, width: 180, height: 100))
+        smallView.backgroundColor = Array(colorData.colorList)[row].value
+        let label = UILabel(frame: CGRect(x: 50, y: 320, width: 50, height: 50))
+        label.textColor = UIColor.black
+        label.text = Array(colorData.colorList)[row].key
+        smallView.addSubview(label)
+        return smallView
+    }
 }
 
 
 extension ItemTableViewController: UISearchBarDelegate{
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let predicate = NSPredicate(format: "name CONTAINS[c] %@",searchBar.text! )
+        itemData.loadItemData(moc: moc!, predicate: predicate)
+        tableView.reloadData()
+    }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0{
+            itemData.loadItemData(moc: moc!)
+            tableView.reloadData()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
 }
