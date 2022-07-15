@@ -2,22 +2,20 @@
 //  ItemData.swift
 //  TodoList
 //
-//  Created by Ajin on 14/07/22.
+//  Created by Ajin on 15/07/22.
 //
 
 import Foundation
-import UIKit
 import CoreData
 
-struct CategoryData{
-    
-    var items : [Category]?
+struct ItemData{
+    var items : [Item]?
     
     
     //fetching category list
     mutating func loadItemData(moc:NSManagedObjectContext?, predicate:NSPredicate?=nil){
         
-        var fetchReq = NSFetchRequest<Category>(entityName: "Category")
+        var fetchReq = NSFetchRequest<Item>(entityName: "Item")
         if let finalPredicate = predicate{
             fetchReq.predicate = finalPredicate
         }
@@ -30,10 +28,18 @@ struct CategoryData{
         
     }
     
-    func saveItemData(moc:NSManagedObjectContext?,item:String){
-        var obj = NSEntityDescription.insertNewObject(forEntityName: "Category", into: moc!) as! Category
-        obj.item = item
+    func saveItemData(moc:NSManagedObjectContext?, name:String, priroty:String, done:Bool,  parent:Category){
+        var obj = NSEntityDescription.insertNewObject(forEntityName: "Item", into: moc!) as! Item
+        obj.done = false
+        obj.name = name
+        obj.priority = priroty
+        obj.parentRelationship = parent
         
+        doSave(moc: moc)
+        
+    }
+    
+    func doSave(moc:NSManagedObjectContext?){
         //save
         do{
             try moc?.save()
@@ -41,9 +47,5 @@ struct CategoryData{
         }catch{
             print("error in saving data")
         }
-        
     }
-    
-    
-    
 }

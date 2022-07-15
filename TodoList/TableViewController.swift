@@ -31,7 +31,11 @@ class TableViewController: UITableViewController {
         moc = appD.persistentContainer.viewContext
         category.loadItemData(moc: moc)
     }
-
+    
+    //UI outlets
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     //UI component actions
     @IBAction func addItems(_ sender: UIBarButtonItem) {
         let alertToAdd = UIAlertController(title: "Add Category", message: nil, preferredStyle: .alert)
@@ -75,6 +79,9 @@ class TableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "toItems", sender: self)
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -111,14 +118,41 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        let itemTable = segue.destination as! ItemTableViewController
+        if let index = tableView.indexPathForSelectedRow{
+            itemTable.selectedCategroy = category.items![index.row]
+        }
     }
-    */
+    
 
+}
+
+//MARK: - Search bar
+extension TableViewController: UISearchBarDelegate{
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let predicate = NSPredicate(format: "item CONTAINS[c] %@",searchBar.text! )
+        category.loadItemData(moc: moc!, predicate: predicate)
+        tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0{
+            category.loadItemData(moc: moc!)
+            tableView.reloadData()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
+    
 }

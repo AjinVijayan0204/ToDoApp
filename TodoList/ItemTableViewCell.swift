@@ -9,6 +9,10 @@ import UIKit
 
 class ItemTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var todo: UILabel!
+    @IBOutlet weak var checkMark: UIImageView!
+    @IBOutlet weak var priorityColor: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

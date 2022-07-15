@@ -15,22 +15,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="5TP-jK-fD3">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <items>
-                                <navigationItem title="Title" id="qxL-7g-DhL">
-                                    <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="r1I-af-J8j">
-                                        <connections>
-                                            <action selector="addItems:" destination="XJx-oh-anJ" id="hse-o7-5rn"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </navigationItem>
-                            </items>
-                        </navigationBar>
+                        <stackView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" id="ChH-kJ-djJ">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="111"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <navigationBar contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nJw-7f-deI">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
+                                    <items>
+                                        <navigationItem title="Categories" id="jcX-Aj-KAe">
+                                            <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="kgs-5v-9hf">
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <connections>
+                                                    <action selector="addItems:" destination="XJx-oh-anJ" id="3Pw-Td-Izd"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </navigationItem>
+                                    </items>
+                                </navigationBar>
+                                <searchBar contentMode="redraw" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gam-WH-9ZX">
+                                    <rect key="frame" x="0.0" y="60" width="414" height="51"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="XJx-oh-anJ" id="SZG-kq-qdL"/>
+                                    </connections>
+                                </searchBar>
+                            </subviews>
+                        </stackView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell1" editingAccessoryType="checkmark" rowHeight="86" id="HXv-Yo-DQg" customClass="TableViewCell" customModule="TodoList" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88.5" width="414" height="86"/>
+                                <rect key="frame" x="0.0" y="155.5" width="414" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HXv-Yo-DQg" id="Vf4-2d-sU3">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="86"/>
@@ -47,6 +60,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="Category" destination="kSH-ZX-gFO" id="JMN-DZ-x2H"/>
+                                    <segue destination="2PQ-ug-hGP" kind="presentation" identifier="toItems" trigger="accessoryAction" modalPresentationStyle="fullScreen" id="8aK-NR-uZE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -60,54 +74,94 @@
             </objects>
             <point key="canvasLocation" x="876.81159420289862" y="73.660714285714278"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Item Table View Controller-->
         <scene sceneID="W6Q-ga-dCf">
             <objects>
-                <tableViewController id="2PQ-ug-hGP" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ahb-FH-kW0">
+                <tableViewController id="2PQ-ug-hGP" customClass="ItemTableViewController" customModule="TodoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="93" estimatedRowHeight="93" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ahb-FH-kW0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <stackView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" id="siz-Ha-lGS">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
+                        <stackView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="13" id="siz-Ha-lGS">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="116"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <navigationBar contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2b5-Cn-qhl">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
+                                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2b5-Cn-qhl">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
                                     <items>
-                                        <navigationItem title="Title" id="0TD-H7-Xin">
+                                        <navigationItem title="Things to do" id="0TD-H7-Xin">
                                             <barButtonItem key="leftBarButtonItem" title="Item" image="chevron.backward.circle" catalog="system" id="fMC-pv-WUQ">
                                                 <color key="tintColor" systemColor="labelColor"/>
+                                                <connections>
+                                                    <action selector="goBack:" destination="2PQ-ug-hGP" id="MPd-Am-Gk1"/>
+                                                </connections>
                                             </barButtonItem>
                                             <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="rU5-NP-nNk">
                                                 <color key="tintColor" systemColor="labelColor"/>
+                                                <connections>
+                                                    <action selector="addItem:" destination="2PQ-ug-hGP" id="2r3-eV-7xf"/>
+                                                </connections>
                                             </barButtonItem>
                                         </navigationItem>
                                     </items>
                                 </navigationBar>
-                                <searchBar contentMode="redraw" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ljl-qQ-Z9U">
-                                    <rect key="frame" x="0.0" y="50" width="414" height="44"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
+                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tkG-Mu-X7F">
+                                    <rect key="frame" x="0.0" y="65" width="414" height="51"/>
+                                    <subviews>
+                                        <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="ljl-qQ-Z9U">
+                                            <rect key="frame" x="0.0" y="0.0" width="366.5" height="51"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="2PQ-ug-hGP" id="dzJ-hc-JZa"/>
+                                            </connections>
+                                        </searchBar>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wc-Ya-Lmc">
+                                            <rect key="frame" x="366.5" y="0.0" width="47.5" height="51"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" image="tag" catalog="system">
+                                                <color key="baseForegroundColor" systemColor="labelColor"/>
+                                            </buttonConfiguration>
+                                            <connections>
+                                                <action selector="filter:" destination="2PQ-ug-hGP" eventType="touchUpInside" id="vT4-oD-KLd"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
                             </subviews>
                         </stackView>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="cell2" rowHeight="93" id="fIr-gG-hEK">
-                                <rect key="frame" x="0.0" y="138.5" width="414" height="93"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell2" rowHeight="93" id="fIr-gG-hEK" customClass="ItemTableViewCell" customModule="TodoList" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="160.5" width="414" height="93"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fIr-gG-hEK" id="vq3-ZM-n7h">
-                                    <rect key="frame" x="0.0" y="0.0" width="373.5" height="93"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="93"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N4p-y5-XaU">
-                                            <rect key="frame" x="20" y="36" width="270" height="21"/>
+                                            <rect key="frame" x="20" y="36" width="295" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Grx-cv-iY1">
+                                            <rect key="frame" x="337" y="19" width="33" height="56"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JC7-Gj-m93">
+                                                    <rect key="frame" x="5" y="14.5" width="23" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" systemColor="labelColor"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="checkMark" destination="JC7-Gj-m93" id="88b-xo-wfN"/>
+                                    <outlet property="priorityColor" destination="Grx-cv-iY1" id="xz7-3j-llI"/>
+                                    <outlet property="todo" destination="N4p-y5-XaU" id="hq0-4p-HB2"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -124,8 +178,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="chevron.backward.circle" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="tag" catalog="system" width="128" height="119"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

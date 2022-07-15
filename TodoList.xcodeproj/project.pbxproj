@@ -20,6 +20,7 @@
 		87801DAC28802C440019F3E1 /* CategoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87801DAB28802C440019F3E1 /* CategoryData.swift */; };
 		87801DAE288133A40019F3E1 /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87801DAD288133A40019F3E1 /* ItemTableViewController.swift */; };
 		87801DB0288133B70019F3E1 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87801DAF288133B70019F3E1 /* ItemTableViewCell.swift */; };
+		87801DB2288134C20019F3E1 /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87801DB1288134C20019F3E1 /* ItemData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		87801DAB28802C440019F3E1 /* CategoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryData.swift; sourceTree = "<group>"; };
 		87801DAD288133A40019F3E1 /* ItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewController.swift; sourceTree = "<group>"; };
 		87801DAF288133B70019F3E1 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		87801DB1288134C20019F3E1 /* ItemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			children = (
 				87801DA9288028B30019F3E1 /* ColorData.swift */,
 				87801DAB28802C440019F3E1 /* CategoryData.swift */,
+				87801DB1288134C20019F3E1 /* ItemData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 				87801DA5287F25700019F3E1 /* TableViewCell.swift in Sources */,
 				87801DA3287F21100019F3E1 /* TableViewController.swift in Sources */,
 				87801D96287DE3D30019F3E1 /* TodoList.xcdatamodeld in Sources */,
+				87801DB2288134C20019F3E1 /* ItemData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
