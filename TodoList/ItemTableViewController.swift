@@ -26,7 +26,8 @@ class ItemTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        print(selectedCategroy)
+        //print(selectedCategroy)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,10 +49,12 @@ class ItemTableViewController: UITableViewController {
         //defining picker view
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: 250, height: 300)
-        let pickerView = UIPickerView(frame: CGRect(x: 10, y: 0, width: 250, height: 300))
+        let pickerView = UIPickerView(frame: CGRect(x: 10, y: 0, width: 250, height: 250))
         
         pickerView.delegate = self
         pickerView.dataSource = self
+        pickerView.selectRow(0, inComponent: 0, animated: true)
+        selectedPriority = Array(colorData.colorList.keys.sorted())[0]
         
         vc.view.addSubview(pickerView)
         
@@ -62,6 +65,7 @@ class ItemTableViewController: UITableViewController {
         
         //adding pickerview into alert
         alertToAdd.setValue(vc, forKey: "contentViewController")
+        
         
         
         let ok = UIAlertAction(title: "Ok", style: .default) { (alert) in
@@ -87,6 +91,8 @@ class ItemTableViewController: UITableViewController {
         
         pickerView.delegate = self
         pickerView.dataSource = self
+        pickerView.selectRow(0, inComponent: 0, animated: true)
+        selectedPriority = Array(colorData.colorList.keys.sorted())[0]
         
         vc.view.addSubview(pickerView)
         
@@ -202,22 +208,21 @@ extension ItemTableViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Array(colorData.colorList)[row].key
+        return Array(colorData.colorList.keys.sorted())[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedPriority = Array(colorData.colorList)[row].key
+        selectedPriority = Array(colorData.colorList.keys.sorted())[row]
     }
     
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let smallView = UIView(frame: CGRect(x: 50, y: 320, width: 180, height: 100))
-        smallView.backgroundColor = Array(colorData.colorList)[row].value
-        let label = UILabel(frame: CGRect(x: 50, y: 320, width: 50, height: 50))
-        label.textColor = UIColor.black
-        label.text = Array(colorData.colorList)[row].key
-        smallView.addSubview(label)
-        return smallView
-    }
+//    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+//        let smallView = UIView(frame: CGRect(x: 50, y: 320, width: 200, height: 20))
+//        smallView.backgroundColor = Array(colorData.colorList)[row].value
+//        let label = UILabel(frame: CGRect(x: 40, y: 0, width: 200, height: 20))
+//            label.text = Array(colorData.colorList.keys.sorted())[row]
+//            smallView.addSubview(label)
+//        return smallView
+//    }
 }
 
 
