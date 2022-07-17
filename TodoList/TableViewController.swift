@@ -25,11 +25,13 @@ class TableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         moc = appD.persistentContainer.viewContext
         category.loadItemData(moc: moc)
+        
     }
     
     //UI outlets
@@ -66,7 +68,7 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (category.items?.count)!
+        return (category.items.count)
     }
 
     
@@ -74,7 +76,7 @@ class TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell1", for: indexPath) as! TableViewCell
 
         // Configure the cell...
-        cell.Category.text = category.items![indexPath.row].item
+        cell.Category.text = category.items[indexPath.row].item
 
         return cell
     }
@@ -128,7 +130,7 @@ class TableViewController: UITableViewController {
         
         let itemTable = segue.destination as! ItemTableViewController
         if let index = tableView.indexPathForSelectedRow{
-            itemTable.selectedCategroy = category.items![index.row]
+            itemTable.selectedCategroy = category.items[index.row]
         }
     }
     

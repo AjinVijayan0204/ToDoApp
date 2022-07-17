@@ -11,7 +11,7 @@ import CoreData
 
 struct CategoryData{
     
-    var items : [Category]?
+    var items : [Category] = []
     
     
     //fetching category list
@@ -24,6 +24,8 @@ struct CategoryData{
         
         do{
             items = (try moc?.fetch(fetchReq))!
+            deleteEmptyTitile()
+            saveCategory(moc: moc!)
         }catch{
             print("Error in fetching category")
         }
@@ -31,19 +33,37 @@ struct CategoryData{
     }
     
     func saveItemData(moc:NSManagedObjectContext?,item:String){
-        var obj = NSEntityDescription.insertNewObject(forEntityName: "Category", into: moc!) as! Category
-        obj.item = item
         
-        //save
+        if item.count == 0{
+            print("Unwanted Save")
+        }else{
+            var obj = NSEntityDescription.insertNewObject(forEntityName: "Category", into: moc!) as! Category
+            obj.item = item
+            
+            //save
+            saveCategory(moc: moc!)
+        }
+        
+        
+    }
+    
+    func saveCategory(moc:NSManagedObjectContext?){
         do{
             try moc?.save()
             print("Data saved")
         }catch{
             print("error in saving data")
         }
-        
     }
     
-    
-    
+    mutating func deleteEmptyTitile(){
+        var itemArray : [Category] = []
+        for item in items{
+            if item.item != nil{
+                itemArray.append(item)
+            }
+        }
+        items = itemArray
+        
+    }
 }

@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 struct ItemData{
-    var items : [Item]?
+    var items : [Item] = []
     
     
     //fetching category list
@@ -22,6 +22,7 @@ struct ItemData{
         
         do{
             items = (try moc?.fetch(fetchReq))!
+            print(items.count)
         }catch{
             print("Error in fetching category")
         }
@@ -48,4 +49,5 @@ struct ItemData{
             print("error in saving data")
         }
     }
+    
 }

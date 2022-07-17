@@ -8,7 +8,7 @@
         <attribute name="done" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="priority" optional="YES" attributeType="String"/>
-        <relationship name="parentRelationship" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Category" inverseName="items" inverseEntity="Category"/>
+        <relationship name="parentRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="items" inverseEntity="Category"/>
     </entity>
     <elements>
         <element name="Category" positionX="-318.9296875" positionY="124.37890625" width="128" height="58"/>
