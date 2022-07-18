@@ -100,7 +100,10 @@ class ItemTableViewController: UITableViewController {
         alertToAdd.setValue(vc, forKey: "contentViewController")
         let ok = UIAlertAction(title: "Ok", style: .default) { (alert) in
             let predicate = NSPredicate(format: "priority MATCHES %@", self.selectedPriority!)
-            self.itemData.loadItemData(moc: self.moc!, predicate: predicate)
+            let parentPredicate = NSPredicate(format: "parentRelationship.item MATCHES %@", self.selectedCategroy!.item!)
+            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, parentPredicate])
+            
+            self.itemData.loadItemData(moc: self.moc!, predicate: compoundPredicate)
             
             self.tableView.reloadData()
         }
