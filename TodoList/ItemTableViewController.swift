@@ -244,7 +244,8 @@ extension ItemTableViewController: UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0{
-            itemData.loadItemData(moc: moc!)
+            let parentPredicate = NSPredicate(format: "parentRelationship.item MATCHES %@", self.selectedCategroy!.item!)
+            itemData.loadItemData(moc: moc!, predicate: parentPredicate)
             tableView.reloadData()
             
             DispatchQueue.main.async {
